@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+</head>
+<body>
+<div th:replace="nav/topbar"></div>
+<div id="alert" th:if="${message}" th:text="${message}"
+     th:class="${updated ? 'alert alert-success' : 'alert alert-warning'}"></div>
+<div id="studentProfile" class="container">
+    <h2>Student Profile</h2>
+    <form th:action="@{'/student/' + ${student.studentId}}" th:object="${student}" method="post">
+        <div class="form-group">
+            <label for="studentId"><strong>Student ID:</strong></label>
+            <input type="text" class="form-control" id="studentId" name="studentId" th:value="${student.studentId}" readonly />
+        </div>
+        <div class="form-group">
+            <label for="studentFirstName"><strong>First Name:</strong></label>
+            <input type="text" class="form-control" id="studentFirstName" name="studentFirstName" th:value="${student.studentFirstName}" />
+        </div>
+        <div class="form-group">
+            <label for="studentSurName"><strong>SurName:</strong></label>
+            <input type="text" class="form-control" id="studentSurName" name="studentSurName" th:value="${student.studentSurName}" />
+        </div>
+        <div class="form-group">
+            <label for="dateOfBirth"><strong>Date of Birth:</strong></label>
+            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" th:value="${#dates.format(student.dateOfBirth, 'yyyy-MM-dd')}" />
+        </div>
+        <button class="btn btn-primary btn-lg" type="submit" name="update" value="submit">Update Profile</button>
+    </form>
+</div>
+</body>
+</html>

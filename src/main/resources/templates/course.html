@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Course Details</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+</head>
+<body>
+<div th:replace="nav/topbar"></div>
+<div id="alert" th:if="${isEnrolled}" th:text="${message}" th:class="${'alert alert-success'}"></div>
+<div id="container" class="container">
+    <h1 th:inline="text">[[${course.courseCode}]]</h1>
+    <p th:inline="text">[[${course.courseName}]]</p>
+    <p th:inline="text">Fee: [[${#numbers.formatCurrency(course.fee)}]]</p>
+    <div th:unless="${isEnrolled}">
+        <form action="#" th:action="@{'/courses/' + ${course.courseId} + '/enrol'}" method="post">
+            <button class="btn btn-primary btn-lg" type="submit" name="course" value="submit">Enrol
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

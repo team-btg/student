@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mariadb
+  mariadb:
+    image: mariadb:latest
+    container_name: studentdb
+    ports:
+      - "3310:3306"
+    expose:
+      - "3310"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_APPLICATION_USER}
+      MYSQL_PASSWORD: ${DB_APPLICATION_PASSWORD}
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: true

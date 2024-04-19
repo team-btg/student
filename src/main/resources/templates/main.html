@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+</head>
+<body>
+<div th:replace="nav/topbar"></div>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to the Student Portal!</h1>
+        <p class="lead">Your one-stop solution for managing your academic journey.</p>
+        <hr class="my-4">
+        <p>Explore courses, enroll in your preferred ones, and keep track of your eligibility for graduation. Remember, you need to clear all outstanding fees and book penalties to be eligible for graduation.</p>
+    </div>
+</div>
+</body>
+</html>
