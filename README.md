@@ -1,4 +1,4 @@
-# Project Title
+# Student Portal
 
 This is a Spring Boot application developed in Java and built with Maven. It's a web application that provides a platform for students to manage their profiles, view courses, and check their graduation eligibility.
 
