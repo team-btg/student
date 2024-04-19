@@ -11,6 +11,8 @@
 <body>
 <div class="customcontainer">
     <div class="wrapper">
+        <div id="alert" th:if="${message}" th:text="${message}"
+             th:class="${isError ? 'alert alert-warning' : 'alert alert-success'}"></div>
         <div class="title"><span>Registration Form</span></div>
         <form action="#" th:action="@{/user}" method="post">
             <div class="row">

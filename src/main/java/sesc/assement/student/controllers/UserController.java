@@ -55,6 +55,8 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Object login(@RequestParam String email, @RequestParam String password, HttpServletRequest request) {
         try {
+            ModelAndView modelAndView = new ModelAndView("login");
+
             User existingStudent = userService.getStudentByEmail(email);
             if (existingStudent != null && existingStudent.getPassword().equals(password)) {
                 //RequestContextHolder.currentRequestAttributes().setAttribute("user", existingStudent, RequestAttributes.SCOPE_REQUEST);
@@ -75,7 +77,9 @@ public class UserController {
 
                 return new RedirectView("/main");
             } else {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                modelAndView.addObject("isError", true);
+                modelAndView.addObject("message", "Invalid email or password");
+                return modelAndView;
             }
         } catch (Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -83,9 +87,9 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<User> createNewStudent(@ModelAttribute User newStudent) {
-        User createdUser = userService.createNewUser(newStudent);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    public ModelAndView createNewStudent(@ModelAttribute User newStudent) {
+        return userService.createNewUser(newStudent);
+        //return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @GetMapping("/user")

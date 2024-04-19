@@ -60,12 +60,15 @@
 <div class="topnav" id="myTopnav" th:fragments="topnav">
     <a th:href="@{/main}">Home</a>
     <a th:href="@{/courses}">View Courses</a>
-    <a th:href="@{/graduation}">Graduation</a>
-    <a th:href="@{/student}">Profile</a>
-    <a th:href="@{/logout}" class="logout-link">Logout</a>
+    <a th:href="@{/graduation}" th:if="${isStudent}">Graduation</a>
+    <a th:href="@{/student}" th:if="${isStudent}">Profile</a>
+    <a href="#" class="logout-link" onclick="document.getElementById('logoutForm').submit();">Logout</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars"></i>
     </a>
+    <form id="logoutForm" action="/logout" method="post" style="display: none;">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+    </form>
 </div>
 
 <script>

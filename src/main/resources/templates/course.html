@@ -11,7 +11,7 @@
 </head>
 <body>
 <div th:replace="nav/topbar"></div>
-<div id="alert" th:if="${isEnrolled}" th:text="${message}" th:class="${'alert alert-success'}"></div>
+<div id="alert" th:if="${message}" th:text="${message}" th:class="${'alert alert-success'}"></div>
 <div id="container" class="container">
     <h1 th:inline="text">[[${course.courseCode}]]</h1>
     <p th:inline="text">[[${course.courseName}]]</p>

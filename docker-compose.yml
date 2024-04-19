@@ -1,15 +1,28 @@
 version: '3.8'
 
 services:
-  app:
+  studentapp:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      spring.datasource.url: jdbc:mariadb://mariadb:3306/${DB_NAME}
+      spring.datasource.username: ${DB_APPLICATION_USER}
+      spring.datasource.password: ${DB_APPLICATION_PASSWORD}
     ports:
-      - "8082:8082"
+      - "8083:8083"
+    expose:
+      - "8083"
     depends_on:
       - mariadb
+    networks:
+      - default
   mariadb:
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     image: mariadb:latest
     container_name: studentdb
     ports:

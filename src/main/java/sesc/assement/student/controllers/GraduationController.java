@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import sesc.assement.student.models.Student;
+import sesc.assement.student.models.User;
 import sesc.assement.student.services.GraduationService;
 
 @Controller
@@ -17,7 +18,8 @@ public class GraduationController {
     }
 
     @RequestMapping("/graduation")
-    public ModelAndView home(@Nullable @SessionAttribute("student") Student student) {
+    public ModelAndView home(@Nullable @SessionAttribute("user") User user) {
+        Student student = user.getStudent();
         return graduationService.getGraduationStatus(student);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 import sesc.assement.student.enums.Role;
 import sesc.assement.student.exceptions.*;
 //import sesc.assement.student.models.LoginUserDetails;
@@ -35,16 +36,34 @@ public class UserPortalService {
         this.integrationService = integrationService;
     }
 
-    public User createNewUser(User newUser) {
-        if (newUser.getEmail() == null || newUser.getEmail().isEmpty()) {
-            throw new UserNotValidException();
-        }
+    public ModelAndView createNewUser(User newUser) {
+        ModelAndView modelAndView = new ModelAndView("login");
+
+        try {
+            if (newUser.getEmail() == null || newUser.getEmail().isEmpty()) {
+                throw new UserNotValidException();
+            }
+            if (userRepository.findStudentByEmail(newUser.getEmail()) != null) {
+                throw new UserNotValidException("User with email " + newUser.getEmail() + " already exists");
+            }
+
 //        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 //        String encodedPassword = passwordEncoder.encode(newUser.getPassword());
 //        newUser.setPassword(encodedPassword);
-        newUser.setRole(Role.STUDENT);
 
-        return userRepository.save(newUser);
+            newUser.setRole(Role.STUDENT);
+            userRepository.save(newUser);
+
+            modelAndView.addObject("isError", false);
+            modelAndView.addObject("user", newUser);
+            modelAndView.addObject("message", "Successfully registered");
+        } catch (UserNotValidException e) {
+            modelAndView = new ModelAndView("register");
+            modelAndView.addObject("isError", true);
+            modelAndView.addObject("message", e.getMessage());
+        }
+
+        return modelAndView;
     }
 
     public User getStudentByEmail(String email) {
