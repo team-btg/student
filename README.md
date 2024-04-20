@@ -28,7 +28,7 @@ mvn clean install
 This application can be deployed using Docker and Docker Compose. Here are the steps to do so:
 Build the Docker image for the application:
 ```
-docker-compose up
+docker-compose up -d --build
 ```
 
 Your application should now be running at http://localhost:8083   
