@@ -48,7 +48,7 @@ public class SecurityConfig extends AbstractHttpConfigurer<SecurityConfig, HttpS
         http
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers("/css/**", "/js/**").permitAll()
-                        .requestMatchers("/login", "/enrol", "/main", "/student/**"
+                        .requestMatchers("/login", "/enroll", "/main", "/student/**"
                                 , "/courses/**", "/graduation", "/logout/**", "/").permitAll()
                         .anyRequest().authenticated()
                 )

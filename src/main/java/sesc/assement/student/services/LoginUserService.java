@@ -24,16 +24,7 @@ public class LoginUserService {
         this.userRepository = userRepository;
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        User user = userRepository.findStudentByEmail(email);
-//        if (user == null) {
-//            throw new UsernameNotFoundException("User not found");
-//        }
-//        return new LoginUserDetails(user);
-//    }
-
-public ModelAndView loadLoginUserDetails(User user, Student student, @NotNull @NotEmpty String view) {
+    public ModelAndView loadLoginUserDetails(User user, Student student, @NotNull @NotEmpty String view) {
         if (user == null) {
             return new ModelAndView("redirect:/login");
         }
