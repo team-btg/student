@@ -14,6 +14,28 @@ These instructions will get you a copy of the project up and running on your loc
 - Docker Compose
 - IntelliJ IDEA 2023.3.6 or any preferred IDE
 
+#### Finance
+The application must integrate with the Finance microservice, available through the following repository: 
+``` https://github.com/tvergilio/finance ```
+ 
+#### Library
+The application must integrate with the Library microservice, available through the following repository: 
+``` https://github.com/tvergilio/CESBooks ```
+ 
+Note: as of 2024 there has been an issue with sqlalchemy library (see Discord). To correct this follow these steps:
+1. Clone the repo (https://github.com/tvergilio/CESBooks)
+2. Rename .env.example to .env
+3. Update dependency to cs50~=9.3.0 in requirements.txt file
+4. Run docker build --tag ces-books:4.0 . in terminal to create a new Docker image
+5. Update docker-compose.yml file to use the image that we just created:
+** docker-compose.yml**
+```
+libraryapp:
+  image: ces-books:4.0
+```
+6. Run docker-compose up -d in terminal now
+7. The library app should work fine now at localhost:80!
+
 ### Building the Project
 
 1. Clone the repository
